@@ -22,4 +22,6 @@
 
 _Bool wifi_initialize(void);
 
+void wifi_wait_connect_loop(void);
+
 #endif

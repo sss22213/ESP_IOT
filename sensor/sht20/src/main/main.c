@@ -12,6 +12,7 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "esp_spi_flash.h"
+#include "mqtt.h"
 #include "sht20.h"
 #include "wifi.h"
 struct _sht20 *ptr_sht20;
@@ -28,7 +29,6 @@ void sht20_temperature(void *argument)
    while (1) {
       sht20_read_temperature(ptr_sht20);
       sht20_read_humidity(ptr_sht20);
-     
       vTaskDelay(500 / portTICK_RATE_MS);
    }
 }
@@ -42,7 +42,12 @@ void app_main(void)
    esp_netif_init();
    esp_event_loop_create_default();
    wifi_initialize();
+   wifi_wait_connect_loop();
+
+   mqtt_init("mqtt://broker.hivemq.com");
+   mqtt_wait_connect_loop();
+
+   printf("Test\n");
 
    xTaskCreate(main_task, "main_task", 6 * 1024, NULL, 5, NULL);
-   //xTaskCreate(sht20_temperature, "sht20_temperature", 6 * 1024, NULL, 7, NULL);
 }

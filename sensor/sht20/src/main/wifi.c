@@ -1,11 +1,13 @@
 #include "wifi.h"
 
-static EventGroupHandle_t s_wifi_event_group;
-
-enum EVENT {
+enum WIFI_EVENT {
     CONNECTED_BIT = BIT0,
-    ESPTOUCH_DONE_BIT = BIT1
+    ESPTOUCH_DONE_BIT = BIT1,
+    CONNECTED_TO_AP_BIT = BIT2,
 };
+
+// Wifi status flag 
+static EventGroupHandle_t s_wifi_event_group;
 
 static inline void _smart_connect(void *parm)
 {
@@ -24,13 +26,20 @@ static inline void _smart_connect(void *parm)
             //printf("WiFi Connected to ap\n");
         }
         */
-
+        if(uxBits & CONNECTED_TO_AP_BIT) {
+            esp_smartconfig_stop();
+            vTaskDelay(200 / portTICK_RATE_MS);
+            esp_restart();
+            vTaskDelete(NULL);
+        }
+        /*
         if(uxBits & ESPTOUCH_DONE_BIT) {
             esp_smartconfig_stop();
             vTaskDelay(200 / portTICK_RATE_MS);
             esp_restart();
             vTaskDelete(NULL);
         }
+        */
     }
 }
 
@@ -48,11 +57,17 @@ static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_
             mem_storge_read(WIFI_NAMESPACE, WIFI_REGION, &wifi_config, sizeof(wifi_config_t));
             esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
             esp_wifi_connect();
+        } else {
+            xTaskCreate(_smart_connect, "wifi_smart_connect_task", 4096, NULL, 3, NULL);
         }
         
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
         xTaskCreate(_smart_connect, "wifi_smart_connect_task", 4096, NULL, 3, NULL);
         xEventGroupClearBits(s_wifi_event_group, CONNECTED_BIT);
+
+    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_CONNECTED) {
+        printf("Connected to AP\n");
+        xEventGroupSetBits(s_wifi_event_group, CONNECTED_TO_AP_BIT);
 
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         xEventGroupSetBits(s_wifi_event_group, CONNECTED_BIT);
@@ -104,4 +119,14 @@ _Bool wifi_initialize(void)
     esp_wifi_start();
 
     return true;
+}
+
+void wifi_wait_connect_loop(void)
+{
+    EventBits_t connect_bit = xEventGroupGetBits(s_wifi_event_group);
+
+    while ((connect_bit & CONNECTED_TO_AP_BIT) != CONNECTED_TO_AP_BIT) {
+        connect_bit = xEventGroupGetBits(s_wifi_event_group);
+        vTaskDelay(1000 / portTICK_RATE_MS);
+    }
 }
