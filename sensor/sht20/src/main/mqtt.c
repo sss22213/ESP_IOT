@@ -7,34 +7,52 @@ enum MQTT_EVENT {
 // MQTT signal
 static EventGroupHandle_t s_mqtt_event_group;
 
+static esp_mqtt_client_handle_t client;
+
+static QueueHandle_t system_message_queue;
+
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
 {
     //esp_mqtt_event_handle_t event = event_data;
     //esp_mqtt_client_handle_t client = event->client;
     //int msg_id;
+    esp_mqtt_event_handle_t event = event_data;
+
+    struct _message message;
+
     switch ((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
         xEventGroupSetBits(s_mqtt_event_group, CONNECTED_MQTT_BROKEN_BIT);
         printf("Already connect to mqtt broken\n");
+        esp_mqtt_client_subscribe(client, "SHT20_Temperature", 0);
         break;
+
     case MQTT_EVENT_DISCONNECTED:
         xEventGroupClearBits(s_mqtt_event_group, CONNECTED_MQTT_BROKEN_BIT);
         break;
+
     case MQTT_EVENT_SUBSCRIBED:
         printf("Detect EVENT\n");
         break;
+
     case MQTT_EVENT_UNSUBSCRIBED:
 
         break;
+
     case MQTT_EVENT_PUBLISHED:
 
         break;
-    case MQTT_EVENT_DATA:
 
+    case MQTT_EVENT_DATA:
+        printf("%s\n", event->data);
+        //message_unpack(&message, event->data);
+        //mqtt_event_process(message.type, message);
         break;
+
     case MQTT_EVENT_ERROR:
 
         break;
+
     default:
         
         break;
@@ -47,14 +65,16 @@ static inline void _init(esp_mqtt_client_config_t mqtt_cfg)
         .uri = mqtt_cfg.uri,
     };
 
-    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg1);
+    client = esp_mqtt_client_init(&mqtt_cfg1);
+
+    system_message_queue = xQueueCreate(100, sizeof(struct _mqtt_event_inform_message));
 
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, client);
 
     esp_mqtt_client_start(client);
 }
 
-void mqtt_init(const char *uri)
+void mqtt_initialize(const char *uri)
 {
     esp_mqtt_client_config_t mqtt_cfg;
 
@@ -73,4 +93,25 @@ void mqtt_wait_connect_loop(void)
         connect_bit = xEventGroupGetBits(s_mqtt_event_group);
         vTaskDelay(1000 / portTICK_RATE_MS);
     }
+}
+/**
+ * {"NAME":<name>,"TYPE":<type>,"VALUE":<value>,"TIMESTAMP":<timestamp>,"PID":<pid>,"VID":<vid>,"UUID":<UUID>}
+ */
+void mqtt_publish(char *name, int type, float value)
+{
+    struct _mqtt_event_inform_message mqtt_event_inform_message;
+
+    char raw_message[512] = {0};
+
+    /* Waiting for timestamp
+    while (mqtt_event_inform_message.event_id != TIMESTAMP_EVENT) {
+        xQueueReceive(system_message_queue, &(mqtt_event_inform_message), 100);
+    }
+    */
+    
+    // message_pack(name, type, value, mqtt_event_inform_message.i_value, PID, VID, UUID, raw_message);
+
+    message_pack(name, type, value, 5282752, PID, VID, UUID, raw_message);
+
+    esp_mqtt_client_publish(client, name, raw_message, 0, 0, 0);
 }

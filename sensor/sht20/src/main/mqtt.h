@@ -12,12 +12,16 @@
 #include "esp_event.h"
 #include "esp_netif.h"
 #include "mqtt_client.h"
+#include "mqtt_event.h"
+#include "message.h"
 #include "esp_tls.h"
 #include "esp_ota_ops.h"
 #include <sys/param.h>
 
-void mqtt_init(const char*);
+void mqtt_initialize(const char*);
 
 void mqtt_wait_connect_loop(void);
+
+void mqtt_publish(char*, int, float);
 
 #endif

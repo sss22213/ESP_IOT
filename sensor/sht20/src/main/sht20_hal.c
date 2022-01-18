@@ -75,7 +75,6 @@ _Bool sht20_iic_mem_write_byte(uint8_t slave_address, uint8_t mem_address, uint8
 
 _Bool sht20_iic_mem_read_byte(uint8_t slave_address, uint8_t mem_address, uint8_t *read_byte, uint16_t len)
 {
-    int res = 0;
     i2c_cmd_handle_t i2c_cmd = i2c_cmd_link_create();
 
     // Config i2c stretch

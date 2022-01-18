@@ -1,5 +1,4 @@
-/* Hello World Example
-
+/*
    This example code is in the Public Domain (or CC0 licensed, at your option.)
 
    Unless required by applicable law or agreed to in writing, this
@@ -12,9 +11,11 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "esp_spi_flash.h"
+#include "device_info.h"
 #include "mqtt.h"
 #include "sht20.h"
 #include "wifi.h"
+
 struct _sht20 *ptr_sht20;
 
 void main_task(void *argument)
@@ -24,30 +25,31 @@ void main_task(void *argument)
    }
 }
 
-void sht20_temperature(void *argument)
+void sht20_temperature_humidity(void *argument)
 {
    while (1) {
       sht20_read_temperature(ptr_sht20);
       sht20_read_humidity(ptr_sht20);
+      mqtt_publish("SHT20_Temperature", SENSOR_EVENT, ptr_sht20->temperature);
+      mqtt_publish("SHT20_Humidity", SENSOR_EVENT, ptr_sht20->humidity);
       vTaskDelay(500 / portTICK_RATE_MS);
    }
 }
 
 void app_main(void)
 {
-
    INIT_SHT20(sht20_device, 22, 21);
    ptr_sht20 = &sht20_device;
    nvs_flash_init();
    esp_netif_init();
    esp_event_loop_create_default();
+
    wifi_initialize();
    wifi_wait_connect_loop();
 
-   mqtt_init("mqtt://broker.hivemq.com");
+   mqtt_initialize(MQTT_BROKEN_URI);
    mqtt_wait_connect_loop();
 
-   printf("Test\n");
-
    xTaskCreate(main_task, "main_task", 6 * 1024, NULL, 5, NULL);
+   xTaskCreate(sht20_temperature_humidity, "sht20_temperature_humidity", 6 * 1024, NULL, 4, NULL);
 }

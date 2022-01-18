@@ -34,8 +34,6 @@ _Bool sht20_read_humidity(struct _sht20 *sht20)
 
     sht20->humidity = -6.0 +  (humidity_sensor_raw / 65536.0) * 125.0;
 
-    printf("%e\n", sht20->humidity);
-    
     return true;
 }
 

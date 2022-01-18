@@ -9,6 +9,8 @@ enum WIFI_EVENT {
 // Wifi status flag 
 static EventGroupHandle_t s_wifi_event_group;
 
+static int connect_retry_count;
+
 static inline void _smart_connect(void *parm)
 {
     EventBits_t uxBits;
@@ -51,7 +53,7 @@ static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_
     wifi_config_t wifi_config;
 
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
-        
+
         if (mem_storge_is_empty(WIFI_NAMESPACE) == false) {
             esp_wifi_disconnect();
             mem_storge_read(WIFI_NAMESPACE, WIFI_REGION, &wifi_config, sizeof(wifi_config_t));
@@ -62,7 +64,16 @@ static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_
         }
         
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        xTaskCreate(_smart_connect, "wifi_smart_connect_task", 4096, NULL, 3, NULL);
+        if (connect_retry_count <= 0) {
+            xTaskCreate(_smart_connect, "wifi_smart_connect_task", 4096, NULL, 3, NULL);
+        } else {
+            connect_retry_count--;
+            esp_wifi_disconnect();
+            mem_storge_read(WIFI_NAMESPACE, WIFI_REGION, &wifi_config, sizeof(wifi_config_t));
+            esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
+            esp_wifi_connect();
+        }
+        //
         xEventGroupClearBits(s_wifi_event_group, CONNECTED_BIT);
 
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_CONNECTED) {
@@ -97,7 +108,6 @@ static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_
     } else if (event_base == SC_EVENT && event_id == SC_EVENT_SEND_ACK_DONE) {
         xEventGroupSetBits(s_wifi_event_group, ESPTOUCH_DONE_BIT);
     }
-
 }
 
 _Bool wifi_initialize(void)
@@ -105,6 +115,8 @@ _Bool wifi_initialize(void)
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
 
     s_wifi_event_group = xEventGroupCreate();
+
+    connect_retry_count = 5;
 
     esp_netif_create_default_wifi_sta();
 
