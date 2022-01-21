@@ -49,7 +49,7 @@ void app_main(void)
 
    mqtt_initialize(MQTT_BROKEN_URI);
    mqtt_wait_connect_loop();
-
+   
    xTaskCreate(main_task, "main_task", 6 * 1024, NULL, 5, NULL);
    xTaskCreate(sht20_temperature_humidity, "sht20_temperature_humidity", 6 * 1024, NULL, 4, NULL);
 }

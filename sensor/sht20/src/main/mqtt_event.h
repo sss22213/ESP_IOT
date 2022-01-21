@@ -16,8 +16,9 @@ struct _mqtt_event_inform_message {
     float f_value;
     double d_value;
     char s_value[100];
-};
+} mqtt_event_inform_message;
 
 void mqtt_event_process(int, struct _message);
+void mqtt_event_init(void);
 
 #endif
