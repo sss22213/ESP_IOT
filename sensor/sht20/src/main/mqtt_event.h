@@ -18,6 +18,14 @@ struct _mqtt_event_inform_message {
     char s_value[100];
 } mqtt_event_inform_message;
 
+typedef enum {
+    IDLE = BIT0,
+    SYSTEM_RESET = BIT1,
+    SYSTEM_REBOOT = BIT2,
+} _SYSTEM_EVENT;
+
+EventGroupHandle_t xsystemEventGroup;
+
 void mqtt_event_process(int, struct _message);
 void mqtt_event_init(void);
 

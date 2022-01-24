@@ -7,18 +7,25 @@ extern void mqtt_publish(char*, int, float);
 void mqtt_event_init(void)
 {
     mqtt_subscribe_queue = xQueueCreate(1024, sizeof(struct _mqtt_event_inform_message*));
+
+    xsystemEventGroup = xEventGroupCreate();
 }
 
 void mqtt_event_process(int event_id, struct _message message)
 {
+    int system_event_id = 0;
+
     if ((event_id & SYSTEM_EVENT) == SYSTEM_EVENT) {
-        struct _mqtt_event_inform_message *ptr_mqtt_event_inform_message;
-        mqtt_event_inform_message.event_id = SYSTEM_EVENT;
-        mqtt_event_inform_message.f_value = message.value;
+        //struct _mqtt_event_inform_message *ptr_mqtt_event_inform_message;
+        //mqtt_event_inform_message.event_id = SYSTEM_EVENT;
+        //mqtt_event_inform_message.f_value = message.value;
+        system_event_id = (int)message.value;
 
         printf("SYSTEM_EVENT is triggered.\n");
 
-        xQueueSend(mqtt_subscribe_queue, &ptr_mqtt_event_inform_message, 100);
+        xEventGroupSetBits(xsystemEventGroup, message.value);
+
+        //xQueueSend(mqtt_subscribe_queue, &ptr_mqtt_event_inform_message, 100);
 
     } else if ((event_id & ECHO_EVENT) == ECHO_EVENT) {
         mqtt_publish(DEVICE_NAME, ECHO_EVENT, -1.0);

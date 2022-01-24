@@ -2,6 +2,7 @@
     "files.associations": {
         "sht20.h": "c",
         "string.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "system_task.h": "c"
     }
 }
