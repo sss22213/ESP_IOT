@@ -9,7 +9,7 @@ from telegram.ext import Updater
 from telegram.ext import CommandHandler, CallbackQueryHandler
 from telegram.ext import MessageHandler, Filters
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-token = '==5180607144:AAEbnhu9rz_cow7XfhdZdm8242gy0WwJycA=='
+token = '5180607144:AAEbnhu9rz_cow7XfhdZdm8242gy0WwJycA'
 
 if __name__ == '__main__':
     new_mqtt = mqtt._mqtt('broker.hivemq.com')

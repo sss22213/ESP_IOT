@@ -112,18 +112,18 @@ void mqtt_wait_connect_loop(void)
 void mqtt_publish(char *name, int type, float value)
 {
     struct _mqtt_event_inform_message mqtt_event_inform_message;
+    memset(&mqtt_event_inform_message, 0, sizeof(mqtt_event_inform_message));
 
     char raw_message[512] = {0};
 
-    /* Waiting for timestamp
+    // Waiting for timestamp
     while (mqtt_event_inform_message.event_id != TIMESTAMP_EVENT) {
-        xQueueReceive(system_message_queue, &(mqtt_event_inform_message), 100);
+        if (xQueueReceive(mqtt_subscribe_queue, &(mqtt_event_inform_message), 100 / portTICK_RATE_MS) != pdPASS) {
+            mqtt_event_inform_message.event_id = 0;
+        }
     }
-    */
-    
-    // message_pack(name, type, value, mqtt_event_inform_message.i_value, PID, VID, UUID, raw_message);
 
-    message_pack(name, type, value, 0, 5282752, PID, VID, UUID, raw_message);
+    message_pack(name, type, value, 0, mqtt_event_inform_message.i_value, PID, VID, UUID, raw_message);
 
     esp_mqtt_client_publish(client, name, raw_message, 0, 0, 0);
 }

@@ -4,8 +4,8 @@
  * {"NAME":<name>,"TYPE":<type>,"VALUE":<value>,"ARG":<arg>,"TIMESTAMP":<timestamp>,"PID":<pid>,"VID":<vid>,"UUID":<UUID>}
  */
 
-#define MESSAGE_SEND_PACKAGE "{\"NAME\":\"%s\",\"TYPE\":%d,\"VALUE\":%e,\"ARG\":%e,\"TIMESTAMP\":%d,\"PID\":0x%d,\"VID\":0x%d,\"UUID\":\"%s\"}"
-#define MESSAGE_RECEIVE_PACKAGE "{\"NAME\":\"%[a-zA-Z0-9_]\",\"TYPE\":%d,\"VALUE\":%e,\"ARG\":%e,\"TIMESTAMP\":%d,\"PID\":0x%d,\"VID\":0x%d,\"UUID\":\"%[a-zA-Z0-9x-]\"}"
+#define MESSAGE_SEND_PACKAGE "{\"NAME\":\"%s\",\"TYPE\":%d,\"VALUE\":%e,\"ARG\":%e,\"TIMESTAMP\":%d,\"PID\":%d,\"VID\":%d,\"UUID\":\"%s\"}"
+#define MESSAGE_RECEIVE_PACKAGE "{\"NAME\":\"%[a-zA-Z0-9_]\",\"TYPE\":%d,\"VALUE\":%e,\"ARG\":%e,\"TIMESTAMP\":%d,\"PID\":%d,\"VID\":0x%d,\"UUID\":\"%[a-zA-Z0-9x-]\"}"
 
 static inline void _pack(struct _message message, char *pack_buf)
 {

@@ -3,6 +3,7 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 #include "freertos/event_groups.h"
+#include "freertos/message_buffer.h"
 #include "freertos/semphr.h"
 #include "device_info.h"
 #include "message.h"
@@ -16,7 +17,7 @@ struct _mqtt_event_inform_message {
     float f_value;
     double d_value;
     char s_value[100];
-} mqtt_event_inform_message;
+};
 
 typedef enum {
     IDLE = BIT0,
@@ -25,6 +26,8 @@ typedef enum {
 } _SYSTEM_EVENT;
 
 EventGroupHandle_t xsystemEventGroup;
+
+QueueHandle_t mqtt_subscribe_queue;
 
 void mqtt_event_process(int, struct _message);
 void mqtt_event_init(void);
