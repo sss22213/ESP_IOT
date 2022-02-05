@@ -12,6 +12,7 @@ from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 token = '5180607144:AAEbnhu9rz_cow7XfhdZdm8242gy0WwJycA'
 
 if __name__ == '__main__':
+    '''
     new_mqtt = mqtt._mqtt('broker.hivemq.com')
     new_mqtt.wait_connect_to_broker()
     new_mqtt.subscribe('SYSTEM')
@@ -26,6 +27,7 @@ if __name__ == '__main__':
     bot_timer.start()
 
     # new_mqtt.publish(message._MESSAGE_TYPE_SYSTEM_EVENT, 4, 1)
+    '''
     
     while True:
         time.sleep(1)

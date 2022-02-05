@@ -15,4 +15,5 @@ urlpatterns = [
     path('get_humidity', views.get_humidity),
     path('get_humidity_time', views.get_humidity_time),
     path('get_temperature_time', views.get_temperature_time),
+    path('get_mqtt_status', views.get_mqtt_status),
 ]

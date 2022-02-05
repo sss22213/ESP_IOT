@@ -32,6 +32,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
     case MQTT_EVENT_DISCONNECTED:
         xEventGroupClearBits(s_mqtt_event_group, CONNECTED_MQTT_BROKEN_BIT);
+        esp_mqtt_client_start(client);
         break;
 
     case MQTT_EVENT_SUBSCRIBED:

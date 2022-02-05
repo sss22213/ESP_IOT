@@ -3,6 +3,7 @@ import time
 import message
 import event
 import json
+import os
 
 class _mqtt_connect_infomation:
     URI = ""
@@ -27,15 +28,43 @@ class _mqtt:
         self.client = mqtt.Client()
         self.client.on_connect = self.on_connect
         self.client.on_message = event.on_message
+        self.client.on_disconnect = self.on_disconnect
 
         if self.mqtt_connect_infomation.username != None and self.mqtt_connect_infomation.password != None:
             self.client.username_pw_set(mqtt_connect_infomation.username, mqtt_connect_infomation.password)
         
         self.connect()
 
+    def all_subscribe(self):
+        self.subscribe('SHT20_Temperature')
+        self.subscribe('SHT20_Humidity')
+
+    def network_connect_test(self):
+        PingReturn = os.system("ping -c 4 www.google.com.tw")
+        if PingReturn == 0:
+            return True
+        else:
+            return False
+
+    def on_disconnect(self, client, userdata, rc):
+        print("disconnect.")
+        self.connect_flags = False
+
+        # Waiting for network connect
+        while self.network_connect_test() != True:
+            pass
+
+        try:
+            self.client.reconnect()
+        except:
+            print('socket_error')
+        
+        self.all_subscribe()
+
     def on_connect(self, client, userdata, flags, rc):
         print("Already connect to broker.")
         self.connect_flags = True
+        self.all_subscribe()
         pass
 
     def wait_connect_to_broker(self):
@@ -66,7 +95,10 @@ class _mqtt:
 
     def subscribe(self, topic_name):
         self.client.subscribe(topic_name)
-        
+
+    def get_mqtt_connect_status(self):
+        return self.connect_flags
+
 if __name__ == '__main__':
     new_mqtt = _mqtt('127.0.0.1')
     new_mqtt.wait_connect_to_broker()

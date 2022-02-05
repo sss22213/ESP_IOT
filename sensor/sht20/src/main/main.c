@@ -33,6 +33,7 @@ void sht20_temperature_humidity(void *argument)
       sht20_read_humidity(ptr_sht20);
       mqtt_publish("SHT20_Temperature", SENSOR_EVENT, ptr_sht20->temperature);
       mqtt_publish("SHT20_Humidity", SENSOR_EVENT, ptr_sht20->humidity);
+      //printf("%e %e\n", ptr_sht20->temperature, ptr_sht20->humidity);
       vTaskDelay(500 / portTICK_RATE_MS);
    }
 }

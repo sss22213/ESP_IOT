@@ -2,6 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import readings.sys_init
 
 '''
 System core
@@ -33,6 +34,11 @@ def main():
     execute_from_command_line(sys.argv)
 
 if __name__ == '__main__':
+    # system = readings.sys_init.sys_init()
+    readings.sys_init.system = readings.sys_init.sys_init()
+    readings.sys_init.system.connect()
+
+    '''
     new_mqtt = mqtt._mqtt('broker.hivemq.com')
     new_mqtt.wait_connect_to_broker()
     # new_mqtt.subscribe('SYSTEM')
@@ -41,6 +47,7 @@ if __name__ == '__main__':
 
     timestamp_timer = Timer(0, event.timestamp_event, [new_mqtt])
     timestamp_timer.start()
+    '''
 
     '''
     bot = telegram.Bot(token=token)

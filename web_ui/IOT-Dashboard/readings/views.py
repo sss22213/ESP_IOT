@@ -8,6 +8,7 @@ from django.conf import settings
 import requests
 import sys
 import time
+import readings.sys_init
 from io import BytesIO
 from django.http import HttpResponse
 from django.conf import settings
@@ -117,7 +118,7 @@ class GeneratePdf(View):
         doc.build(elements)
         return response
 
-# @cache_page(CACHE_TTL)
+# @cache_page(CACHE_TTL)get_temperature_time
 def get_readings(request):
     data = []
     r = requests.get('https://api.thingspeak.com/channels/306267/feeds.json?results=100', params=request.GET)
@@ -143,3 +144,10 @@ def get_temperature_time(request):
     t1 = int(time.time())
     t2 = event.sensor_class.get_sensor_time("SHT20_Temperature")
     return HttpResponse(t1-t2)
+
+def get_mqtt_status(request):
+    status = 0
+    if readings.sys_init.system.get_sys_status() == True:
+        status = 1
+
+    return HttpResponse(status)

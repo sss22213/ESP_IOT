@@ -39,8 +39,26 @@ $(function() {
         }); 
         
     };
+    function mqtt_server_status() {
+        $.ajax({
+            url: '/get_mqtt_status',
+            type: 'get',
+            success: function(data) {
+                if (data == 1) {
+                    $("#mqtt_server_status").html("Connected to MQTT server");
+                } else {
+                    $("#mqtt_server_status").html("Disconnect");
+                }
+            },
+            error: function() {
+                $("#mqtt_server_status").html("Disconnect");
+            },
+        }); 
+        
+    };
     setInterval(read_humidity, 500);
     setInterval(read_humidity_time, 500);
     setInterval(read_temperature, 500);
     setInterval(read_temperature_time, 500);
+    setInterval(mqtt_server_status, 500);
 });
