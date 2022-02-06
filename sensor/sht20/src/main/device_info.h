@@ -6,7 +6,7 @@
 #define PID 123
 #define VID 253
 #define MQTT_BROKEN_URI "mqtt://broker.hivemq.com"
-#define UUID "0x00007856-0000-1000-8000-00805F9B34FB"
+#define UUID "0x000000FC-0000-1000-8000-00805F9B34FB"
 
 enum MQTT_SUBSCRIBE_EVENT{
     // Could not remove events.

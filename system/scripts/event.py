@@ -13,7 +13,6 @@ TIMESTAMP_TIMER = 1.0
 sensor_class = sensor._sensor()
 
 def telegram_event(bot, receive_buf, telegram_plugin_obj):
-    # New message come in.
     new_message_flag = False
     if receive_buf[0] == None:
         if bot.getUpdates()[-1].message.text == None:
@@ -33,17 +32,22 @@ def telegram_event(bot, receive_buf, telegram_plugin_obj):
     bot_timer.start()
     pass
 
+# MQTT message callback
 def on_message(client, userdata, msg):
     msg_json = json.loads(msg.payload.decode('utf-8'))
     
+    # Config information to sensor
     sensor_class.set_sensor_value(msg_json['NAME'], msg_json['VALUE'])
     sensor_class.set_sensor_time(msg_json['NAME'], msg_json['TIMESTAMP'])
+    sensor_class.set_sensor_pid_vid(msg_json['NAME'], msg_json['PID'], msg_json['VID'])
+    sensor_class.set_sensor_uuid(msg_json['NAME'], msg_json['UUID'])
 
     pass
 
 def event_start():
     pass
 
+# Publish timestamp
 def timestamp_event(mqtt_object):
     mqtt_object.publish(message._MESSAGE_TYPE_TIMESTAMP_EVENT, 4, int(time.time()))
     #mqtt_object.publish(message._MESSAGE_TYPE_SYSTEM_EVENT, 4, 1)

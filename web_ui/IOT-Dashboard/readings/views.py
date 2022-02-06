@@ -6,6 +6,7 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from easy_pdf.views import PDFTemplateView
 from django.conf import settings
 import requests
+import json
 import sys
 import time
 import readings.sys_init
@@ -126,14 +127,20 @@ def get_readings(request):
         data = r.json() 
     return JsonResponse(list(data['feeds']), safe=False)
 
+# Get sensor information
 def get_temperature(request):
     val = event.sensor_class.get_sensor_value("SHT20_Temperature")
     return HttpResponse(round(val,2))
 
-
 def get_humidity(request):
     val = event.sensor_class.get_sensor_value("SHT20_Humidity")
     return HttpResponse(round(val,2))
+
+def get_sensor_update_time(request):
+    sensor_name = request.POST.get('sensor_name')
+    t1 = int(time.time())
+    t2 = event.sensor_class.get_sensor_time(sensor_name)
+    return HttpResponse(t1-t2)
 
 def get_humidity_time(request):
     t1 = int(time.time())
@@ -151,3 +158,23 @@ def get_mqtt_status(request):
         status = 1
 
     return HttpResponse(status)
+
+def mqtt_get_uri(request):
+    #get_mqtt_uri
+    return HttpResponse(str(readings.sys_init.system.get_mqtt_uri()))
+
+# Summary page
+def summary(request):
+    return render(request, 'summary.html')
+
+def get_sys_version(request):
+    return HttpResponse(readings.sys_init.SYSTEM_VERSION)
+    
+def get_sensor_infomation(request):
+    sensor_name = request.POST.get('sensor_name')
+    pid, vid = event.sensor_class.get_sensor_pid_vid(sensor_name)
+    data = {"VID": pid, 
+            "PID": vid, 
+            "UUID": event.sensor_class.get_sensor_uuid(sensor_name)
+            }
+    return HttpResponse(json.dumps(data), content_type='application/json')

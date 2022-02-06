@@ -18,6 +18,7 @@ void message_pack(char *name, int type, float value,  float arg, int timestamp, 
     struct _message message = {
         .type = type,
         .pid = pid,
+        .vid = vid,
         .arg0 = arg,
         .timestamp = timestamp,
         .value = value

@@ -44,6 +44,7 @@
 </head>
 
 <body>
+    {% csrf_token %}
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'dashboard' %}">Iot</a>
         <ul class="navbar-nav px-3">
@@ -62,27 +63,35 @@
                         <li class="nav-item">
                             <a class="nav-link {{ activedashboard }}" href="{% url 'dashboard' %}">
                                 <span data-feather="home"></span>
-                                Dashboard 
+                                Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ activetemp }}" href="{% url 'temp' %}">
+                            <a class="nav-link {{ activetemp }}" href="{% url 'summary' %}">
                                 <span data-feather="file"></span>
-                                Temperature
+                                Summary
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ activemositure }}" href="{% url 'moisture' %}">
-                                <span data-feather="shopping-cart"></span>
-                                Humidity
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ activepressure }}" href="{% url 'pressure' %}">
-                                <span data-feather="users"></span>
-                                Unknown
-                            </a>
-                        </li>
+                        <!--
+                            <li class="nav-item">
+                                <a class="nav-link {{ activetemp }}" href="{% url 'temp' %}">
+                                    <span data-feather="file"></span>
+                                    Temperature
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ activemositure }}" href="{% url 'moisture' %}">
+                                    <span data-feather="shopping-cart"></span>
+                                    Humidity
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ activepressure }}" href="{% url 'pressure' %}">
+                                    <span data-feather="users"></span>
+                                    Unknown
+                                </a>
+                            </li>
+                        -->
                     </ul>
                 </div>
             </nav>

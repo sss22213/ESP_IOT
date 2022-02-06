@@ -12,8 +12,11 @@ from telegram.ext import CommandHandler, CallbackQueryHandler
 from telegram.ext import MessageHandler, Filters
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
+SYSTEM_VERSION = '1.0d'
+
 class sys_init:
     def __init__(self, mqtt_uri='broker.hivemq.com'):
+        self.mqtt_uri = mqtt_uri
         self.new_mqtt = mqtt._mqtt(mqtt_uri)
 
     def connect(self):
@@ -34,5 +37,8 @@ class sys_init:
 
         return self.sys_status
 
+    def get_mqtt_uri(self):
+        return self.mqtt_uri
+        
 system = None
 # system = sys_init()
