@@ -1,4 +1,4 @@
-# Install script for directory: /home/sss22213/esp/esp-idf/components/mbedtls/mbedtls
+# Install script for directory: /home/ubuntu/esp/esp-idf/components/mbedtls/mbedtls
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/sss22213/Desktop/IOT/sensor/sht20/src/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
-  include("/home/sss22213/Desktop/IOT/sensor/sht20/src/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
+  include("/home/ubuntu/ESP_IOT/sensor/CCS811/src/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
+  include("/home/ubuntu/ESP_IOT/sensor/CCS811/src/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
 
 endif()
 

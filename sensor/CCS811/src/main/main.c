@@ -15,12 +15,24 @@
 #include "mqtt.h"
 #include "wifi.h"
 #include "system_task.h"
+#include "ccs811.h"
 
-struct _sht20 *ptr_sht20;
+struct _ccs811_device *ptr_ccs811_device;
 
 void main_task(void *argument)
 {
    while (1) {
+      vTaskDelay(500 / portTICK_RATE_MS);
+   }
+}
+
+void ccs811_tvoc(void *argument)
+{
+   uint16_t tvoc;
+
+   while (1) {
+      ccs811_read_tvoc(ptr_ccs811_device, &tvoc);
+      mqtt_publish("CCS811_TVOC", SENSOR_EVENT, tvoc);
       vTaskDelay(500 / portTICK_RATE_MS);
    }
 }
@@ -41,6 +53,9 @@ void sht20_temperature_humidity(void *argument)
 
 void app_main(void)
 {
+   INIT_CCS811(ccs811_device, 22, 21);
+   ptr_ccs811_device = &ccs811_device;
+
    nvs_flash_init();
    esp_netif_init();
    esp_event_loop_create_default();
@@ -53,5 +68,5 @@ void app_main(void)
 
    xTaskCreate(main_task, "main_task", 6 * 1024, NULL, 5, NULL);
    xTaskCreate(system_task_process, "system_task_process", 6 * 1024, NULL, 7, NULL);
-   //xTaskCreate(sht20_temperature_humidity, "sht20_temperature_humidity", 6 * 1024, NULL, 4, NULL);
+   xTaskCreate(ccs811_tvoc, "ccs811_tvoc", 6 * 1024, NULL, 4, NULL);
 }

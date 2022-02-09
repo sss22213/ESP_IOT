@@ -1,4 +1,4 @@
-# Install script for directory: /home/sss22213/Desktop/IOT/sensor/sht20/src/main
+# Install script for directory: /home/ubuntu/ESP_IOT/sensor/CCS811/src/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1,4 +1,4 @@
-# Install script for directory: /home/sss22213/Desktop/IOT/sensor/sht20/src
+# Install script for directory: /home/ubuntu/ESP_IOT/sensor/CCS811/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/sss22213/Desktop/IOT/sensor/sht20/src/build/esp-idf/cmake_install.cmake")
+  include("/home/ubuntu/ESP_IOT/sensor/CCS811/src/build/esp-idf/cmake_install.cmake")
 
 endif()
 
@@ -46,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/sss22213/Desktop/IOT/sensor/sht20/src/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ubuntu/ESP_IOT/sensor/CCS811/src/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

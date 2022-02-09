@@ -1,4 +1,4 @@
-/* * Data converted from /home/sss22213/Desktop/IOT/sensor/sht20/src/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/ubuntu/ESP_IOT/sensor/CCS811/src/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded
