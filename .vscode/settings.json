@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "ccs811_hal.h": "c"
+    }
+}
