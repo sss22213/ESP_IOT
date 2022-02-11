@@ -1013,26 +1013,6 @@
         "children": [],
         "depends_on": null,
         "help": null,
-        "id": "SOC_SPI_HD_BOTH_INOUT_SUPPORTED",
-        "name": "SOC_SPI_HD_BOTH_INOUT_SUPPORTED",
-        "range": null,
-        "title": null,
-        "type": "bool"
-    },
-    {
-        "children": [],
-        "depends_on": null,
-        "help": null,
-        "id": "SOC_SPI_AS_CS_SUPPORTED",
-        "name": "SOC_SPI_AS_CS_SUPPORTED",
-        "range": null,
-        "title": null,
-        "type": "bool"
-    },
-    {
-        "children": [],
-        "depends_on": null,
-        "help": null,
         "id": "SOC_SPI_PERIPH_NUM",
         "name": "SOC_SPI_PERIPH_NUM",
         "range": null,
@@ -1068,6 +1048,16 @@
         "range": null,
         "title": null,
         "type": "int"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
+        "id": "SOC_SPI_SUPPORT_AS_CS",
+        "name": "SOC_SPI_SUPPORT_AS_CS",
+        "range": null,
+        "title": null,
+        "type": "bool"
     },
     {
         "children": [],
@@ -1548,6 +1538,24 @@
         "range": null,
         "title": null,
         "type": "hex"
+    },
+    {
+        "children": [
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "Enable this option in case you have a custom toolchain which supports time_t wide 64-bits.\nThis option checks time_t is 64-bits and disables ROM time functions\nto use the time functions from the toolchain instead.\nThis option allows resolving the Y2K38 problem.\nSee \"Setup Linux Toolchain from Scratch\" to build\na custom toolchain which supports 64-bits time_t.\n\nNote: ESP-IDF does not currently come with any pre-compiled toolchain\nthat supports 64-bit wide time_t.\nThis will change in a future major release,\nbut currently 64-bit time_t requires a custom built toolchain.",
+                "id": "SDK_TOOLCHAIN_SUPPORTS_TIME_WIDE_64_BITS",
+                "name": "SDK_TOOLCHAIN_SUPPORTS_TIME_WIDE_64_BITS",
+                "range": null,
+                "title": "Toolchain supports time_t wide 64-bits",
+                "type": "bool"
+            }
+        ],
+        "depends_on": null,
+        "id": "sdk-tool-configuration",
+        "title": "SDK tool configuration",
+        "type": "menu"
     },
     {
         "children": [

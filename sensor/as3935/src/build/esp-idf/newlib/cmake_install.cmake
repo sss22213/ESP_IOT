@@ -1,4 +1,4 @@
-# Install script for directory: /home/ubuntu/esp/esp-idf/components/newlib
+# Install script for directory: /home/sss22213/esp/esp-idf/components/newlib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/ubuntu/ESP_IOT/sensor/as3935/src/build/esp-idf/newlib/port/cmake_install.cmake")
+  include("/home/sss22213/Desktop/IOT/sensor/as3935/src/build/esp-idf/newlib/port/cmake_install.cmake")
 
 endif()
 

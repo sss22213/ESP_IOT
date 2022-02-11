@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/CMakeFiles/bootloader"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/CMakeFiles/bootloader.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "/home/ubuntu/ESP_IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/home/sss22213/Desktop/IOT/sensor/as3935/src/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		}
 	],
 	"target" : 

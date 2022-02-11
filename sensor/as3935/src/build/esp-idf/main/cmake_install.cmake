@@ -1,4 +1,4 @@
-# Install script for directory: /home/ubuntu/ESP_IOT/sensor/as3935/src/main
+# Install script for directory: /home/sss22213/Desktop/IOT/sensor/as3935/src/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -108,6 +108,20 @@ int32_t as3935_get_lightning_distance(struct _as3935_device *as3935_device)
     }
 }
 
+// Energy of the Single Lightning
+uint32_t as3935_get_energy_of_the_single_lightning(struct _as3935_device *as3935_device)
+{
+    _read_reg(as3935_device, 0x04);
+
+    _read_reg(as3935_device, 0x05);
+
+    _read_reg(as3935_device, 0x06);
+
+    return as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_4.S_LIG_L | \
+            (as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_5.S_LIG_M << 8) | \
+            ((as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_6.S_LIG_MM & 0x1F) << 16);
+}
+
 
 _Bool as3935_set_power(struct _as3935_device *as3935_device, AS3935_POWER as3935_power_status)
 {
