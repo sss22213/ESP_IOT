@@ -17,7 +17,7 @@
 #include "system_task.h"
 #include "as3935.h"
 
-struct _ccs811_device *ptr_ccs811_device;
+struct _as3935_device *ptr_as3935_device;
 
 void main_task(void *argument)
 {
@@ -26,22 +26,23 @@ void main_task(void *argument)
    }
 }
 
-/*
-void sht20_temperature_humidity(void *argument)
+
+void read_lightning(void *argument)
 {
+   as3935_get_lightning_distance(ptr_as3935_device);
+
    while (1) {
-      sht20_read_temperature(ptr_sht20);
-      sht20_read_humidity(ptr_sht20);
-      mqtt_publish("SHT20_Temperature", SENSOR_EVENT, ptr_sht20->temperature);
-      mqtt_publish("SHT20_Humidity", SENSOR_EVENT, ptr_sht20->humidity);
-      //printf("%e %e\n", ptr_sht20->temperature, ptr_sht20->humidity);
+      mqtt_publish("AS3935_LIGHTNING", SENSOR_EVENT, ptr_as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_7.DISTANCE);
       vTaskDelay(500 / portTICK_RATE_MS);
    }
 }
-*/
+
 
 void app_main(void)
 {
+   INIT_AS3935_DEVICE(as3935_struct);
+   ptr_as3935_device = &as3935_struct;
+
    nvs_flash_init();
    esp_netif_init();
    esp_event_loop_create_default();

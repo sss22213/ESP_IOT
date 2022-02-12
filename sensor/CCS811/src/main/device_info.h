@@ -2,11 +2,11 @@
 #define __device_info_H__
 #include "esp_event.h"
 
-#define DEVICE_NAME "SHT20_device"
-#define PID 123
-#define VID 253
+#define DEVICE_NAME "CC811_device"
+#define PID 555
+#define VID 666
 #define MQTT_BROKEN_URI "mqtt://broker.hivemq.com"
-#define UUID "0x000000FC-0000-1000-8000-00805F9B34FB"
+#define UUID "0x0001208V-0000-1000-8000-00805F9B34FB"
 
 enum MQTT_SUBSCRIBE_EVENT{
     // Could not remove events.
