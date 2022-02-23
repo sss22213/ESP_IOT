@@ -136,12 +136,24 @@ def get_humidity(request):
     val = event.sensor_class.get_sensor_value("SHT20_Humidity")
     return HttpResponse(round(val,2))
 
+def get_pm_1_0(request):
+    val = event.sensor_class.get_sensor_value("PMS5003T_PM1_0")
+    return HttpResponse(round(val,1))
+
+def get_pm_2_5(request):
+    val = event.sensor_class.get_sensor_value("PMS5003T_PM2_5")
+    return HttpResponse(round(val,1))
+
+def get_pm10(request):
+    val = event.sensor_class.get_sensor_value("PMS5003T_PM10")
+    return HttpResponse(round(val,1))
+
 def get_sensor_update_time(request):
     sensor_name = request.POST.get('sensor_name')
     t1 = int(time.time())
     t2 = event.sensor_class.get_sensor_time(sensor_name)
     return HttpResponse(t1-t2)
-
+'''
 def get_humidity_time(request):
     t1 = int(time.time())
     t2 = event.sensor_class.get_sensor_time("SHT20_Humidity")
@@ -152,6 +164,21 @@ def get_temperature_time(request):
     t2 = event.sensor_class.get_sensor_time("SHT20_Temperature")
     return HttpResponse(t1-t2)
 
+def get_pm_1_0_time(request):
+    t1 = int(time.time())
+    t2 = event.sensor_class.get_sensor_time("PMS5003T_PM1_0")
+    return HttpResponse(round(val,1))
+
+def get_pm_2_5_time(request):
+    t1 = int(time.time())
+    t2 = event.sensor_class.get_sensor_time("PMS5003T_PM2_5")
+    return HttpResponse(round(val,1))
+
+def get_pm10_time(request):
+    t1 = int(time.time())
+    t2 = event.sensor_class.get_sensor_time("PMS5003T_PM10")
+    return HttpResponse(round(val,1))
+'''
 def get_mqtt_status(request):
     status = 0
     if readings.sys_init.system.get_sys_status() == True:

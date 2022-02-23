@@ -6,7 +6,7 @@
 
 #define INIT_AS3935_DEVICE(AS3935_NAME) \
                             struct _as3935_device (AS3935_NAME); \
-                            as3935_spi_initial();\
+                            as3935_spi_initial(); \
                             as3935_set_power(&AS3935_NAME, AS3935_POWER_ON);
 
 typedef enum {

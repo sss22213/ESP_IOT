@@ -32,7 +32,8 @@ void ccs811_tvoc(void *argument)
 
    while (1) {
       ccs811_read_tvoc(ptr_ccs811_device, &tvoc);
-      mqtt_publish("CCS811_TVOC", SENSOR_EVENT, tvoc);
+      printf("%d\n", tvoc);
+      //mqtt_publish("CCS811_TVOC", SENSOR_EVENT, tvoc);
       vTaskDelay(500 / portTICK_RATE_MS);
    }
 }
@@ -68,5 +69,5 @@ void app_main(void)
 
    xTaskCreate(main_task, "main_task", 6 * 1024, NULL, 5, NULL);
    xTaskCreate(system_task_process, "system_task_process", 6 * 1024, NULL, 7, NULL);
-   xTaskCreate(ccs811_tvoc, "ccs811_tvoc", 6 * 1024, NULL, 4, NULL);
+   //xTaskCreate(ccs811_tvoc, "ccs811_tvoc", 6 * 1024, NULL, 4, NULL);
 }

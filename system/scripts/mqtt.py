@@ -38,6 +38,9 @@ class _mqtt:
     def all_subscribe(self):
         self.subscribe('SHT20_Temperature')
         self.subscribe('SHT20_Humidity')
+        self.subscribe('PMS5003T_PM1_0')
+        self.subscribe('PMS5003T_PM2_5')
+        self.subscribe('PMS5003T_PM10')
 
     def network_connect_test(self):
         PingReturn = os.system("ping -c 4 www.google.com.tw")

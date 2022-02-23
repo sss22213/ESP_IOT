@@ -29,30 +29,33 @@ void main_task(void *argument)
 
 void read_lightning(void *argument)
 {
-   as3935_get_lightning_distance(ptr_as3935_device);
-
    while (1) {
-      mqtt_publish("AS3935_LIGHTNING", SENSOR_EVENT, ptr_as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_7.DISTANCE);
-      vTaskDelay(500 / portTICK_RATE_MS);
+      as3935_get_lightning_distance(ptr_as3935_device);
+      //printf("%d\n", ptr_as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_7.DISTANCE);
+      //mqtt_publish("AS3935_LIGHTNING", SENSOR_EVENT, ptr_as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_7.DISTANCE);
+      vTaskDelay(1000 / portTICK_RATE_MS);
    }
 }
 
 
 void app_main(void)
 {
-   INIT_AS3935_DEVICE(as3935_struct);
-   ptr_as3935_device = &as3935_struct;
-
    nvs_flash_init();
    esp_netif_init();
-   esp_event_loop_create_default();
+   //esp_event_loop_create_default();
 
+   /*
    wifi_initialize();
    wifi_wait_connect_loop();
 
    mqtt_initialize(MQTT_BROKEN_URI);
    mqtt_wait_connect_loop();
+   */
+
+   INIT_AS3935_DEVICE(as3935_struct);
+   ptr_as3935_device = &as3935_struct;
 
    xTaskCreate(main_task, "main_task", 6 * 1024, NULL, 5, NULL);
-   xTaskCreate(system_task_process, "system_task_process", 6 * 1024, NULL, 7, NULL);
+   //xTaskCreate(system_task_process, "system_task_process", 6 * 1024, NULL, 7, NULL);
+   xTaskCreate(read_lightning, "read_lightning", 6 * 1024, NULL, 4, NULL);
 }

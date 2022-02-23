@@ -1,16 +1,18 @@
 #ifndef __CCS811_H__
 #define __CCS811_H__
 #include <stdint.h>
+#include <string.h>
 #include "ccs811_hal.h"
 
 #define INIT_CCS811(CCS811_NAME, SCL_PIN, SDA_PIN) \
                     struct _ccs811_device (CCS811_NAME); \
-                    ccs811_init(&CCS811_NAME, SCL_PIN, SDA_PIN, \
+                    ccs811_init(&CCS811_NAME, (SCL_PIN), (SDA_PIN), \
                                 _CCS811_REG_MODE_1, _CCS811_MODE_INT_DATARDY_DISABLE, \
                                 _CCS811_MODE_INT_THRESH_DISABLE);
 
 #define CCS811_HW_ID 0x81
 #define CCS811_HW_VERSION(X) ((X) & 0x0F)
+#define CCS811_APP_START 0xF4
 #define CCS811_RESET_CMD {0x11, 0xE5, 0x72, 0x8A}
 
 typedef enum {

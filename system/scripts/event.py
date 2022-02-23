@@ -35,7 +35,7 @@ def telegram_event(bot, receive_buf, telegram_plugin_obj):
 # MQTT message callback
 def on_message(client, userdata, msg):
     msg_json = json.loads(msg.payload.decode('utf-8'))
-    
+
     # Config information to sensor
     sensor_class.set_sensor_value(msg_json['NAME'], msg_json['VALUE'])
     sensor_class.set_sensor_time(msg_json['NAME'], msg_json['TIMESTAMP'])

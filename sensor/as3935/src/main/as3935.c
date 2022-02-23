@@ -10,7 +10,7 @@ static inline _Bool _read_reg(struct _as3935_device *as3935_device, uint8_t reg_
         return false;
     }
 
-    as3935_device->as3935_reg.reg_val[reg_address] = buf;
+    //as3935_device->as3935_reg.reg_val[reg_address] = buf;
 
     return true;
 }
@@ -125,9 +125,9 @@ uint32_t as3935_get_energy_of_the_single_lightning(struct _as3935_device *as3935
 
 _Bool as3935_set_power(struct _as3935_device *as3935_device, AS3935_POWER as3935_power_status)
 {
-    as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_0.PWD = as3935_power_status;
+    //as3935_device->as3935_reg.as3935_reg_table_byte.as3935_reg_table_loc_0.PWD = as3935_power_status;
 
-    _write_reg(as3935_device, 0x00);
+    //_write_reg(as3935_device, 0x00);
 
     return true;
 }
