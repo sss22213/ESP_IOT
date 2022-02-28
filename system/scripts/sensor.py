@@ -1,6 +1,6 @@
 import message
 
-SENSOR_NAME_LIST = ['SHT20_Temperature', 'SHT20_Humidity', 'PMS5003T_PM1_0', 'PMS5003T_PM2_5', 'PMS5003T_PM10']
+SENSOR_NAME_LIST = ['SHT20_Temperature', 'SHT20_Humidity', 'PMS7003T_PM1_0', 'PMS7003T_PM2_5', 'PMS7003T_PM10']
 
 class _sensor:
     def __init__(self):

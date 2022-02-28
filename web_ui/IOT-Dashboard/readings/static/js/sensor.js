@@ -62,7 +62,7 @@ $(function() {
     function read_pm_1_0_time() {
         $.ajax({
             url: '/get_sensor_update_time',
-            data : {sensor_name: "PMS5003T_PM1_0", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+            data : {sensor_name: "PMS7003T_PM1_0", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
             type: 'post',
             //type: 'get',
             success: function(data) {
@@ -74,7 +74,7 @@ $(function() {
     function read_pm_2_5_time() {
         $.ajax({
             url: '/get_sensor_update_time',
-            data : {sensor_name: "PMS5003T_PM2_5", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+            data : {sensor_name: "PMS7003T_PM2_5", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
             type: 'post',
             //type: 'get',
             success: function(data) {
@@ -86,7 +86,7 @@ $(function() {
     function read_pm10_time() {
         $.ajax({
             url: '/get_sensor_update_time',
-            data : {sensor_name: "PMS5003T_PM10", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+            data : {sensor_name: "PMS7003T_PM10", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
             type: 'post',
             //type: 'get',
             success: function(data) {
@@ -189,7 +189,7 @@ $(function() {
     function get_pm_1_0_infomation() {
         $.ajax({
             url: '/get_sensor_infomation',
-            data : {sensor_name: "PMS5003T_PM1_0", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+            data : {sensor_name: "PMS7003T_PM1_0", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
             type: 'post',
             success: function(data) {
                 //console.log(data["PID"]);
@@ -202,7 +202,7 @@ $(function() {
     function get_pm_2_5_infomation() {
         $.ajax({
             url: '/get_sensor_infomation',
-            data : {sensor_name: "PMS5003T_PM2_5", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+            data : {sensor_name: "PMS7003T_PM2_5", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
             type: 'post',
             success: function(data) {
                 //console.log(data["PID"]);
@@ -215,7 +215,7 @@ $(function() {
     function get_pm10_infomation() {
         $.ajax({
             url: '/get_sensor_infomation',
-            data : {sensor_name: "PMS5003T_PM10", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+            data : {sensor_name: "PMS7003T_PM10", csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
             type: 'post',
             success: function(data) {
                 //console.log(data["PID"]);
