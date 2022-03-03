@@ -39,9 +39,9 @@ void pms7003t_read(pms7003t_data* pms7003t_data_obj)
     }
 
     // data 
-    pms7003t_data_obj->PM1_0 = (data[4] << 8) | data[5];
-    pms7003t_data_obj->PM2_5 = (data[6] << 8) | data[7];
-    pms7003t_data_obj->PM10 = (data[8] << 8) | data[9];
+    pms7003t_data_obj->PM1_0 = (data[10] << 8) | data[11];
+    pms7003t_data_obj->PM2_5 = (data[12] << 8) | data[13];
+    pms7003t_data_obj->PM10 = (data[14] << 8) | data[15];
     pms7003t_data_obj->temperature = ((data[24] << 8) | data[25]) / 10.0;
     pms7003t_data_obj->humidity = ((data[26] << 8) | data[27]) / 10.0;
     xQueueSend(pms7003t_queue, pms7003t_data_obj, 500 / portTICK_RATE_MS);

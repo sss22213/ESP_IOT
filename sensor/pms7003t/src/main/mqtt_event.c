@@ -38,7 +38,9 @@ void mqtt_event_process(int event_id, struct _message message)
         
     } else if ((event_id & SENSOR_EVENT) == SENSOR_EVENT) {
         //printf("SENSOR_EVENT is triggered.\n");
-    } else {
-        //printf("%d\n", event_id);
+    } else if ((event_id & CALLEE_EVENT) == CALLEE_EVENT) {
+        if (strcmp(message.uuid, UUID) == 0) {
+            // Do something
+        }
     }
 }

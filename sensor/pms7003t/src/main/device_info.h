@@ -15,6 +15,7 @@ enum MQTT_SUBSCRIBE_EVENT{
     TIMESTAMP_EVENT = BIT2,
     // User event region.
     SENSOR_EVENT = BIT3,
+    CALLEE_EVENT = BIT4
 };
 
 

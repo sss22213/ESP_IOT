@@ -51,12 +51,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         memset(data_buf, 0, sizeof(data_buf));
         memcpy(data_buf, event->data, event->data_len);
         data_buf[event->data_len] = '\0';
-        /*
-        printf("%s\n", data_buf);
-        */
-        //printf("DATA\n");
+
         message_unpack(&message, data_buf);
-        //printf("%d\n", message.type);
         mqtt_event_process(message.type, message);
         break;
 

@@ -44,6 +44,13 @@ def on_message(client, userdata, msg):
 
     pass
 
+def test_event(mqtt_object):
+    mqtt_object.publish(message._MESSAGE_TYPE_CALLEE_EVENT, 1, int(time.time()), "0x007003TC-0000-1000-8000-00805F9B34FB")
+    test_timer = Timer(TIMESTAMP_TIMER, test_event, [mqtt_object])
+    test_timer.start()
+    pass
+
+
 def event_start():
     pass
 

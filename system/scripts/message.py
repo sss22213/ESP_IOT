@@ -20,6 +20,7 @@ struct _message {
 _MESSAGE_TYPE_SYSTEM_EVENT = (1 << 0)
 _MESSAGE_TYPE_ECHO_EVENT = (1 << 1)
 _MESSAGE_TYPE_TIMESTAMP_EVENT = (1 << 2)
+_MESSAGE_TYPE_CALLEE_EVENT = (1 << 4)
 
 class _message:
     topic_name = "SYSTEM"

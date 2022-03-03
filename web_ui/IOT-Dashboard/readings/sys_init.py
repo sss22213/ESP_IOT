@@ -25,8 +25,12 @@ class sys_init:
 
         self.sys_status = 0
 
+        self.event_timer = Timer(0, event.test_event, [self.new_mqtt])
+        self.event_timer.start()
+        
         self.timestamp_timer = Timer(0, event.timestamp_event, [self.new_mqtt])
         self.timestamp_timer.start()
+        
 
     def get_sys_status(self):
         # MQTT status

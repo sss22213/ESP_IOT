@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #define MESSAGE_NAME_MAXIMUN_SIZE   200
-#define MESSAGE_UUID_MAXIMUN_SIZE   200
+#define MESSAGE_UUID_MAXIMUN_SIZE   1024
 
 struct _message {
     char name[MESSAGE_NAME_MAXIMUN_SIZE];

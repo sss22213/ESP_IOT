@@ -82,16 +82,19 @@ class _mqtt:
         self.client.loop_stop()
         self.connect_flags = False
 
-    def publish(self, message_type, value, arg):
+    def publish(self, message_type, value, arg, UUID=None):
         new_message = message._message()
         new_message.timestamp = int(time.time())
         new_message.message_type = message_type
         new_message.value = value
         new_message.arg = arg
 
+        if UUID == None:
+            UUID = new_message.uuid
+
         self.new_message_json = {"NAME":new_message.topic_name,"TYPE":new_message.message_type,"VALUE":new_message.value,\
                                     "ARG":new_message.arg,"TIMESTAMP":new_message.timestamp,\
-                                    "PID":new_message.pid,"VID":new_message.vid,"UUID":new_message.uuid}
+                                    "PID":new_message.pid,"VID":new_message.vid,"UUID":UUID}
 
         self.client.publish(new_message.topic_name, json.dumps(self.new_message_json).replace(' ',''))
         pass
