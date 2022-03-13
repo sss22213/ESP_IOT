@@ -1,4 +1,25 @@
 #include "sht20.h"
+static inline uint8_t _crc8_checksum(uint8_t *data)
+{
+    uint16_t poly = 0x131;
+    uint8_t crc = 0x00;
+
+    for (int byte_idx = 0; byte_idx < 2; byte_idx++) {
+
+        crc ^= data[byte_idx];
+        for (int bit_idx = 0; bit_idx < 8; bit_idx++) {
+            if (crc & 0x80) {
+                crc = crc << 1;
+                crc ^= poly;
+
+            } else {
+                crc = crc << 1;
+            }
+        }
+    }
+
+    return crc;
+}
 
 void sht20_init(struct _sht20 *sht20, int scl_pin, int sda_pin)
 {
@@ -12,14 +33,20 @@ _Bool sht20_read_temperature(struct _sht20 *sht20)
     uint8_t temperature_raw[3] = {0};
 
     uint16_t temperature_sensor_raw = 0;
+
+    bool ret = true;
    
     sht20_iic_hold_read(SHT20_SLAVE_ADDRESS, SHT20_TRIGER_TEMPERATURE_MEASURE_NO_HOLD_COMMAND, temperature_raw, 3, 40);
 
     temperature_sensor_raw = (uint16_t)temperature_raw[0] << 8 | ((uint16_t)temperature_raw[1] & 0xFC);
 
     sht20->temperature = -46.85 +  (temperature_sensor_raw/ 65536.0) * 175.72;
+
+    if (_crc8_checksum(temperature_raw) != temperature_raw[2]) {
+        ret = false;
+    }
     
-    return true;
+    return ret;
 }
 
 _Bool sht20_read_humidity(struct _sht20 *sht20)
@@ -27,14 +54,20 @@ _Bool sht20_read_humidity(struct _sht20 *sht20)
     uint8_t humidity_raw[3] = {0};
 
     uint16_t humidity_sensor_raw = 0;
+
+    bool ret = true;
    
     sht20_iic_hold_read(SHT20_SLAVE_ADDRESS, SHT20_TRIGER_HUMIDITY_MEASURE_NO_HOLD_COMMAND, humidity_raw, 3, 20);
 
     humidity_sensor_raw = (uint16_t)humidity_raw[0] << 8 | ((uint16_t)humidity_raw[1] & 0xFC);
 
+    if (_crc8_checksum(humidity_raw) != humidity_raw[2]) {
+        ret = false;
+    }
+    
     sht20->humidity = -6.0 +  (humidity_sensor_raw / 65536.0) * 125.0;
 
-    return true;
+    return ret;
 }
 
 

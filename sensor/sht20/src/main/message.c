@@ -5,7 +5,7 @@
  */
 
 #define MESSAGE_SEND_PACKAGE "{\"NAME\":\"%s\",\"TYPE\":%d,\"VALUE\":%e,\"ARG\":%e,\"TIMESTAMP\":%d,\"PID\":%d,\"VID\":%d,\"UUID\":\"%s\"}"
-#define MESSAGE_RECEIVE_PACKAGE "{\"NAME\":\"%[a-zA-Z0-9_]\",\"TYPE\":%d,\"VALUE\":%e,\"ARG\":%e,\"TIMESTAMP\":%d,\"PID\":%d,\"VID\":0x%d,\"UUID\":\"%[a-zA-Z0-9x-]\"}"
+#define MESSAGE_RECEIVE_PACKAGE "{\"NAME\":\"%[a-zA-Z0-9_]\",\"TYPE\":%d,\"VALUE\":%e,\"ARG\":%e,\"TIMESTAMP\":%d,\"PID\":%d,\"VID\":%d,\"UUID\":\"%[a-zA-Z0-9x-]\"}"
 
 static inline void _pack(struct _message message, char *pack_buf)
 {

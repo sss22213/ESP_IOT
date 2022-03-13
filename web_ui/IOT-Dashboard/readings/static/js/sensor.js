@@ -2,7 +2,7 @@ $(function() {
     function connected_quality(time) {
         if (time < 3) {
             return "Excellence";
-        } else if (time < 4) {
+        } else if (time < 10) {
             return "Good";
         } else {
             return "Disconnect";

@@ -28,12 +28,18 @@ void main_task(void *argument)
 
 void sht20_temperature_humidity(void *argument)
 {
+   bool ret = false;
    while (1) {
-      sht20_read_temperature(ptr_sht20);
-      sht20_read_humidity(ptr_sht20);
-      mqtt_publish("SHT20_Temperature", SENSOR_EVENT, ptr_sht20->temperature);
-      mqtt_publish("SHT20_Humidity", SENSOR_EVENT, ptr_sht20->humidity);
-      //printf("%e %e\n", ptr_sht20->temperature, ptr_sht20->humidity);
+      ret = sht20_read_temperature(ptr_sht20);
+      if (ret) {
+         mqtt_publish("SHT20_Temperature", SENSOR_EVENT, ptr_sht20->temperature);
+      }
+
+      ret = sht20_read_humidity(ptr_sht20);
+      if (ret) {
+         mqtt_publish("SHT20_Humidity", SENSOR_EVENT, ptr_sht20->humidity);
+      }
+
       vTaskDelay(500 / portTICK_RATE_MS);
    }
 }
